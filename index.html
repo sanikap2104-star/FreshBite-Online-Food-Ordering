@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreshBite - Online Food Ordering</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#fff8f0;
+    color:#2d1b12;
+}
+
+button{cursor:pointer;font-family:inherit}
+
+.navbar{
+    height:70px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 12px #00000012;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:bold;
+}
+
+.logo span{color:#ff6b35}
+
+.navlinks{
+    display:flex;
+    gap:25px;
+}
+
+.navlinks button{
+    background:none;
+    border:0;
+    color:#443832;
+    font-size:14px;
+}
+
+.navlinks button:hover{color:#ff6b35}
+
+.actions{
+    display:flex;
+    gap:8px;
+}
+
+.actions button{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:50%;
+    background:#fff0e7;
+    position:relative;
+}
+
+.actions button:hover{
+    background:#ff6b35;
+    color:#fff;
+}
+
+#cartCount{
+    position:absolute;
+    right:-3px;
+    top:-3px;
+    background:#ff6b35;
+    color:#fff;
+    border-radius:50%;
+    width:18px;
+    height:18px;
+    font-size:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* HERO */
+
+.hero{
+    min-height:590px;
+    padding:70px 7%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+.badge{
+    color:#ff6b35;
+    background:#fff0e7;
+    padding:8px 15px;
+    border-radius:30px;
+    font-size:13px;
+    display:inline-block;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:60px;
+    line-height:1.08;
+    margin-bottom:20px;
+}
+
+.hero h1 span{color:#ff6b35}
+
+.hero p{
+    color:#716761;
+    max-width:540px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.buttons{
+    display:flex;
+    gap:12px;
+}
+
+.primary,
+.secondary{
+    border:0;
+    padding:13px 24px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.primary{
+    background:#ff6b35;
+    color:#fff;
+}
+
+.primary:hover{background:#e95724}
+
+.secondary{
+    background:#fff;
+    border:1px solid #eadbd1;
+}
+
+.secondary:hover{
+    color:#ff6b35;
+    border-color:#ff6b35;
+}
+
+.hero-img{
+    position:relative;
+}
+
+.hero-img img{
+    width:100%;
+    height:450px;
+    object-fit:cover;
+    border-radius:30px;
+}
+
+.delivery{
+    position:absolute;
+    bottom:20px;
+    left:-20px;
+    background:#fff;
+    padding:15px 20px;
+    border-radius:15px;
+    box-shadow:0 10px 30px #0002;
+}
+
+/* SECTIONS */
+
+.section{
+    padding:80px 7%;
+}
+
+.heading{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.heading span{
+    color:#ff6b35;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.heading h2{
+    font-size:38px;
+    margin:8px 0;
+}
+
+.heading p{color:#777}
+
+/* CATEGORY */
+
+.categories{
+    padding:80px 7%;
+    background:#fff;
+}
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:18px;
+}
+
+.category{
+    background:#fff8f0;
+    border:1px solid #f0dfd3;
+    border-radius:18px;
+    padding:25px 10px;
+    text-align:center;
+    font-size:30px;
+}
+
+.category strong,
+.category small{
+    display:block;
+}
+
+.category strong{
+    font-size:15px;
+    margin-top:8px;
+}
+
+.category small{
+    font-size:10px;
+    color:#888;
+}
+
+.category:hover{
+    border-color:#ff6b35;
+}
+
+/* RESTAURANTS */
+
+.restaurant-grid,
+.food-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid #eee3dc;
+}
+
+.card img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+}
+
+.card-body{
+    padding:17px;
+}
+
+.card-body h3{
+    margin:6px 0 10px;
+}
+
+.orange{
+    color:#ff6b35;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.info{
+    display:flex;
+    justify-content:space-between;
+    color:#777;
+    font-size:11px;
+    margin-bottom:15px;
+}
+
+.full{
+    width:100%;
+}
+
+/* OFFER */
+
+.offer{
+    margin:20px 7%;
+    background:#ff6b35;
+    color:white;
+    border-radius:25px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+}
+
+.offer-text{
+    padding:55px;
+}
+
+.offer h2{
+    font-size:43px;
+    margin:10px 0;
+}
+
+.offer img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+}
+
+/* MENU */
+
+.menu{
+    background:#fff;
+}
+
+.controls{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:35px;
+    flex-wrap:wrap;
+}
+
+.search{
+    display:flex;
+    width:350px;
+}
+
+.search input{
+    flex:1;
+    padding:13px;
+    border:1px solid #eadbd1;
+    outline:none;
+}
+
+.search button{
+    width:50px;
+    border:0;
+    background:#ff6b35;
+    color:#fff;
+}
+
+.controls select{
+    padding:12px;
+    border:1px solid #eadbd1;
+    border-radius:8px;
+    background:#fff;
+}
+
+.food-img{
+    height:200px;
+    position:relative;
+}
+
+.food-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.heart{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:#fff;
+    font-size:20px;
+}
+
+.food-description{
+    color:#777;
+    font-size:12px;
+    min-height:38px;
+}
+
+.tags{
+    margin:10px 0;
+}
+
+.tags span{
+    background:#fff0e7;
+    color:#ff6b35;
+    border-radius:20px;
+    padding:4px 8px;
+    font-size:9px;
+    margin-right:4px;
+}
+
+.food-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.food-bottom strong{
+    font-size:20px;
+}
+
+.food-bottom button{
+    padding:8px 10px;
+    border:0;
+    border-radius:7px;
+}
+
+.view{
+    background:#f1ece8;
+}
+
+.add{
+    background:#ff6b35;
+    color:white;
+}
+
+/* ABOUT */
+
+.about{
+    background:#fff1e7;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+.about h2{
+    font-size:45px;
+    margin:10px 0 20px;
+}
+
+.about p{
+    color:#6d625c;
+    line-height:1.7;
+    margin-bottom:12px;
+}
+
+.about-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.about-stats div{
+    background:#fff;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.about-stats strong{
+    display:block;
+    color:#ff6b35;
+    font-size:27px;
+}
+
+/* CONTACT */
+
+.contact{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:35px;
+    border-radius:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+}
+
+.contact p{
+    color:#777;
+    margin:15px 0;
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+input,textarea,select{
+    padding:13px;
+    border:1px solid #e5d9d1;
+    border-radius:9px;
+    outline:none;
+}
+
+textarea{
+    min-height:120px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#2d1b12;
+    color:#fff;
+    padding:45px 7%;
+    text-align:center;
+}
+
+footer p{
+    color:#aaa;
+    margin:10px 0 20px;
+}
+
+footer button{
+    background:none;
+    border:0;
+    color:#bbb;
+    margin:0 10px;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0009;
+    z-index:5000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    background:#fff;
+    width:min(600px,100%);
+    max-height:90vh;
+    overflow:auto;
+    border-radius:20px;
+    padding:30px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:15px;
+    top:12px;
+    width:35px;
+    height:35px;
+    border:0;
+    border-radius:50%;
+    background:#f5eee9;
+    font-size:22px;
+}
+
+.close:hover{
+    background:#ff6b35;
+    color:#fff;
+}
+
+/* PRODUCT */
+
+.product{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.product img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.product h2{
+    margin:7px 0;
+}
+
+.product p{
+    color:#777;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.price{
+    color:#ff6b35;
+    font-size:25px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+/* CART */
+
+.cart-row{
+    display:grid;
+    grid-template-columns:70px 1fr auto;
+    gap:12px;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+}
+
+.cart-row img{
+    width:70px;
+    height:60px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+.qty{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-top:6px;
+}
+
+.qty button{
+    width:25px;
+    height:25px;
+    border:0;
+    background:#fff0e7;
+    border-radius:5px;
+}
+
+.remove{
+    border:0;
+    background:none;
+    color:#999;
+}
+
+.summary{
+    margin-top:20px;
+}
+
+.summary p{
+    display:flex;
+    justify-content:space-between;
+    margin:8px 0;
+}
+
+.auth{
+    width:min(420px,100%);
+    text-align:center;
+}
+
+.auth form{
+    margin-top:20px;
+}
+
+.auth p{
+    color:#777;
+    margin-top:15px;
+}
+
+.auth button.link{
+    background:none;
+    border:0;
+    color:#ff6b35;
+    font-weight:bold;
+}
+
+.success{
+    text-align:center;
+}
+
+.success-icon{
+    font-size:60px;
+    color:#24a148;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+    .navbar nav{display:none}
+
+    .hero,
+    .about,
+    .contact{
+        grid-template-columns:1fr;
+    }
+
+    .restaurant-grid,
+    .food-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .category-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .offer{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .restaurant-grid,
+    .food-grid,
+    .category-grid{
+        grid-template-columns:1fr;
+    }
+
+    .product{
+        grid-template-columns:1fr;
+    }
+
+    .actions button{
+        width:34px;
+        height:34px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🍴 Fresh<span>Bite</span>
+    </div>
+
+    <nav class="navlinks">
+        <button onclick="showHome()">Home</button>
+        <button onclick="showRestaurants()">Restaurants</button>
+        <button onclick="showMenu()">Menu</button>
+        <button onclick="showAbout()">About</button>
+        <button onclick="showContact()">Contact</button>
+    </nav>
+
+    <div class="actions">
+        <button onclick="showMenu()">🔍</button>
+        <button onclick="showWishlist()">♡</button>
+        <button onclick="openCart()">🛒<b id="cartCount">0</b></button>
+        <button onclick="openLogin()">👤</button>
+    </div>
+
+</header>
+
+
+<section class="hero" id="homeSection">
+
+    <div>
+
+        <span class="badge">🔥 Fresh food. Fast delivery.</span>
+
+        <h1>
+            Delicious Food<br>
+            <span>Delivered Fast.</span>
+        </h1>
+
+        <p>
+            Order your favourite meals from the best restaurants
+            and enjoy fresh food at your doorstep.
+        </p>
+
+        <div class="buttons">
+
+            <button class="primary" onclick="showMenu()">
+                Explore Menu
+            </button>
+
+            <button class="secondary" onclick="showRestaurants()">
+                View Restaurants
+            </button>
+
+        </div>
+
+        <div class="stats">
+            <div>
+                <strong>500+</strong><br>
+                <small>Food Items</small>
+            </div>
+
+            <div>
+                <strong>50+</strong><br>
+                <small>Restaurants</small>
+            </div>
+
+            <div>
+                <strong>4.8 ⭐</strong><br>
+                <small>Rating</small>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="hero-img">
+
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80">
+
+        <div class="delivery">
+            🚴 <strong> Fast Delivery</strong><br>
+            <small>25-30 minutes</small>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="categories">
+
+    <div class="heading">
+        <span>EXPLORE</span>
+        <h2>What are you craving?</h2>
+        <p>Choose your favourite category</p>
+    </div>
+
+    <div class="category-grid">
+
+        <button class="category" onclick="categoryFood('Pizza')">
+            🍕
+            <strong>Pizza</strong>
+            <small>25 items</small>
+        </button>
+
+        <button class="category" onclick="categoryFood('Burger')">
+            🍔
+            <strong>Burgers</strong>
+            <small>20 items</small>
+        </button>
+
+        <button class="category" onclick="categoryFood('Indian')">
+            🍛
+            <strong>Indian</strong>
+            <small>40 items</small>
+        </button>
+
+        <button class="category" onclick="categoryFood('Chinese')">
+            🍜
+            <strong>Chinese</strong>
+            <small>30 items</small>
+        </button>
+
+        <button class="category" onclick="categoryFood('Dessert')">
+            🍰
+            <strong>Desserts</strong>
+            <small>18 items</small>
+        </button>
+
+        <button class="category" onclick="categoryFood('Drinks')">
+            🥤
+            <strong>Drinks</strong>
+            <small>15 items</small>
+        </button>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="restaurantsSection">
+
+    <div class="heading">
+        <span>TOP RESTAURANTS</span>
+        <h2>Popular Restaurants</h2>
+        <p>Order from your favourite restaurants</p>
+    </div>
+
+    <div class="restaurant-grid" id="restaurants"></div>
+
+</section>
+
+
+<section class="offer">
+
+    <div class="offer-text">
+
+        <span>LIMITED OFFER</span>
+
+        <h2>Get 20% OFF</h2>
+
+        <p>
+            Use coupon code <b>FRESH20</b>
+        </p>
+
+        <button class="secondary" onclick="showOffer()">
+            View Offer Foods
+        </button>
+
+    </div>
+
+    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=80">
+
+</section>
+
+
+<section class="section menu" id="menuSection">
+
+    <div class="heading">
+        <span>OUR MENU</span>
+        <h2>Choose Your Favourite</h2>
+        <p>Fresh and delicious food</p>
+    </div>
+
+    <div class="controls">
+
+        <div class="search">
+            <input id="search" placeholder="Search food...">
+            <button onclick="searchFood()">🔍</button>
+        </div>
+
+        <select id="categoryFilter" onchange="filterFood()">
+            <option value="all">All Categories</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Burger">Burger</option>
+            <option value="Indian">Indian</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Dessert">Dessert</option>
+            <option value="Drinks">Drinks</option>
+        </select>
+
+        <select id="priceFilter" onchange="filterFood()">
+            <option value="all">All Prices</option>
+            <option value="under200">Under ₹200</option>
+            <option value="200-300">₹200 - ₹300</option>
+            <option value="above300">Above ₹300</option>
+        </select>
+
+    </div>
+
+    <div class="food-grid" id="foods"></div>
+
+</section>
+
+
+<section class="section about" id="aboutSection">
+
+    <div>
+
+        <span>ABOUT US</span>
+
+        <h2>Good Food.<br>Good Mood.</h2>
+
+        <p>
+            FreshBite is an online food ordering platform that
+            connects customers with their favourite restaurants.
+        </p>
+
+        <p>
+            We focus on fresh food, fast delivery and a simple
+            ordering experience.
+        </p>
+
+    </div>
+
+    <div class="about-stats">
+
+        <div>
+            <strong>500+</strong>
+            Food Items
+        </div>
+
+        <div>
+            <strong>50+</strong>
+            Restaurants
+        </div>
+
+        <div>
+            <strong>10K+</strong>
+            Customers
+        </div>
+
+        <div>
+            <strong>4.8⭐</strong>
+            Rating
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="contactSection">
+
+    <div class="heading">
+        <span>CONTACT US</span>
+        <h2>We'd Love To Hear From You</h2>
+    </div>
+
+    <div class="contact">
+
+        <div>
+
+            <h3>Get in touch</h3>
+
+            <p>📍 Pune, Maharashtra</p>
+            <p>📞 +91 98765 43210</p>
+            <p>📧 hello@freshbite.com</p>
+
+        </div>
+
+        <form onsubmit="sendMessage(event)">
+
+            <input placeholder="Your Name" required>
+
+            <input
+                type="email"
+                placeholder="Email"
+                required
+            >
+
+            <textarea
+                placeholder="Your Message"
+                required
+            ></textarea>
+
+            <button class="primary">
+                Send Message
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="logo">
+        🍴 Fresh<span>Bite</span>
+    </div>
+
+    <p>Fresh food. Fast delivery. Happy customers.</p>
+
+    <button onclick="showHome()">Home</button>
+    <button onclick="showMenu()">Menu</button>
+    <button onclick="showAbout()">About</button>
+    <button onclick="showContact()">Contact</button>
+
+    <br><br>
+
+    <small>© 2026 FreshBite. All Rights Reserved.</small>
+
+</footer>
+
+
+<!-- PRODUCT MODAL -->
+
+<div class="modal" id="productModal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeModal('productModal')">
+            ×
+        </button>
+
+        <div id="productDetails"></div>
+
+    </div>
+
+</div>
+
+
+<!-- CART MODAL -->
+
+<div class="modal" id="cartModal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeModal('cartModal')">
+            ×
+        </button>
+
+        <h2>🛒 Your Cart</h2>
+
+        <div id="cartItems"></div>
+
+        <div class="summary">
+
+            <p>
+                <span>Subtotal</span>
+                <strong id="subtotal">₹0</strong>
+            </p>
+
+            <p>
+                <span>Delivery</span>
+                <strong id="delivery">₹0</strong>
+            </p>
+
+            <p>
+                <span>Discount</span>
+                <strong id="discount">₹0</strong>
+            </p>
+
+            <hr>
+
+            <p>
+                <strong>Total</strong>
+                <strong id="total">₹0</strong>
+            </p>
+
+        </div>
+
+        <button class="primary full" onclick="checkout()">
+            Proceed to Checkout
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- LOGIN -->
+
+<div class="modal" id="loginModal">
+
+    <div class="modal-box auth">
+
+        <button class="close" onclick="closeModal('loginModal')">
+            ×
+        </button>
+
+        <h2>👤 Welcome Back!</h2>
+
+        <p>Login to your FreshBite account</p>
+
+        <form onsubmit="login(event)">
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                type="password"
+                placeholder="Password"
+                required
+            >
+
+            <button class="primary full">
+                Login
+            </button>
+
+        </form>
+
+        <p>
+            Don't have an account?
+            <button class="link" onclick="openRegister()">
+                Register
+            </button>
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- REGISTER -->
+
+<div class="modal" id="registerModal">
+
+    <div class="modal-box auth">
+
+        <button class="close" onclick="closeModal('registerModal')">
+            ×
+        </button>
+
+        <h2>📝 Create Account</h2>
+
+        <form onsubmit="register(event)">
+
+            <input
+                id="registerName"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                type="password"
+                placeholder="Password"
+                required
+            >
+
+            <button class="primary full">
+                Create Account
+            </button>
+
+        </form>
+
+        <p>
+            Already have an account?
+            <button class="link" onclick="openLogin()">
+                Login
+            </button>
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- CHECKOUT -->
+
+<div class="modal" id="checkoutModal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeModal('checkoutModal')">
+            ×
+        </button>
+
+        <h2>Checkout</h2>
+
+        <p>Complete your order</p>
+
+        <br>
+
+        <form onsubmit="placeOrder(event)">
+
+            <input placeholder="Full Name" required>
+
+            <input placeholder="Phone Number" required>
+
+            <textarea placeholder="Delivery Address" required></textarea>
+
+            <select required>
+                <option value="">Payment Method</option>
+                <option>Cash on Delivery</option>
+                <option>UPI</option>
+                <option>Credit / Debit Card</option>
+            </select>
+
+            <select required>
+                <option value="">Delivery Time</option>
+                <option>25-30 minutes</option>
+                <option>35-45 minutes</option>
+                <option>45-60 minutes</option>
+            </select>
+
+            <button class="primary full">
+                Place Order
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- SUCCESS -->
+
+<div class="modal" id="successModal">
+
+    <div class="modal-box success">
+
+        <button class="close" onclick="closeModal('successModal')">
+            ×
+        </button>
+
+        <div class="success-icon">✓</div>
+
+        <h2>Order Placed! 🎉</h2>
+
+        <p>Your delicious food is on the way.</p>
+
+        <div class="order">
+            Order Number<br>
+            <strong id="orderNumber"></strong>
+        </div>
+
+        <br>
+
+        <button
+            class="primary full"
+            onclick="closeModal('successModal')"
+        >
+            Done
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const foods = [
+
+{
+id:1,
+name:"Margherita Pizza",
+category:"Pizza",
+price:220,
+rating:4.8,
+image:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
+description:"Classic Italian pizza with tomato sauce, mozzarella and basil.",
+ingredients:"Tomato, mozzarella, basil, pizza sauce",
+tags:["Veg","Popular"]
+},
+
+{
+id:2,
+name:"Farmhouse Pizza",
+category:"Pizza",
+price:280,
+rating:4.7,
+image:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80",
+description:"Loaded pizza with fresh vegetables and cheese.",
+ingredients:"Capsicum, onion, tomato, cheese",
+tags:["Veg","Fresh"]
+},
+
+{
+id:3,
+name:"Cheese Burger",
+category:"Burger",
+price:190,
+rating:4.6,
+image:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
+description:"Juicy burger with cheese, lettuce and special sauce.",
+ingredients:"Veg patty, cheese, lettuce, sauce",
+tags:["Veg","Popular"]
+},
+
+{
+id:4,
+name:"Crispy Veg Burger",
+category:"Burger",
+price:160,
+rating:4.5,
+image:"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80",
+description:"Crispy vegetable burger with fresh toppings.",
+ingredients:"Veg patty, tomato, lettuce, sauce",
+tags:["Veg","Crispy"]
+},
+
+{
+id:5,
+name:"Paneer Tikka",
+category:"Indian",
+price:240,
+rating:4.9,
+image:"https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80",
+description:"Soft paneer cubes marinated in Indian spices.",
+ingredients:"Paneer, capsicum, onion, spices",
+tags:["Veg","Spicy"]
+},
+
+{
+id:6,
+name:"Masala Dosa",
+category:"Indian",
+price:130,
+rating:4.7,
+image:"https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+description:"Crispy dosa filled with spiced potato masala.",
+ingredients:"Rice, urad dal, potato, spices",
+tags:["Veg","South Indian"]
+},
+
+{
+id:7,
+name:"Veg Hakka Noodles",
+category:"Chinese",
+price:180,
+rating:4.5,
+image:"https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=800&q=80",
+description:"Stir-fried noodles with fresh vegetables.",
+ingredients:"Noodles, cabbage, carrot, capsicum",
+tags:["Veg","Chinese"]
+},
+
+{
+id:8,
+name:"Veg Manchurian",
+category:"Chinese",
+price:210,
+rating:4.6,
+image:"https://images.unsplash.com/photo-1625398407796-82650a8c2a5a?auto=format&fit=crop&w=800&q=80",
+description:"Crispy vegetable balls in spicy Manchurian sauce.",
+ingredients:"Vegetables, corn flour, sauces",
+tags:["Veg","Spicy"]
+},
+
+{
+id:9,
+name:"Veg Biryani",
+category:"Indian",
+price:180,
+rating:4.8,
+image:"https://images.unsplash.com/photo-1599043513900-ed6fe01d4e24?auto=format&fit=crop&w=800&q=80",
+description:"Aromatic basmati rice with vegetables and Indian spices.",
+ingredients:"Basmati rice, vegetables, onion, spices",
+tags:["Veg","Popular","Bestseller"]
+},
+
+{
+id:10,
+name:"Chocolate Brownie",
+category:"Dessert",
+price:140,
+rating:4.9,
+image:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80",
+description:"Rich and fudgy chocolate brownie.",
+ingredients:"Chocolate, flour, butter, sugar, cocoa",
+tags:["Sweet","Chocolate","Popular"]
+},
+
+{
+id:11,
+name:"Chocolate Cake",
+category:"Dessert",
+price:170,
+rating:4.8,
+image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
+description:"Soft chocolate cake with rich chocolate cream.",
+ingredients:"Chocolate, flour, cream, sugar",
+tags:["Sweet","Chocolate"]
+},
+
+{
+id:12,
+name:"Mango Shake",
+category:"Drinks",
+price:120,
+rating:4.7,
+image:"https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=800&q=80",
+description:"Refreshing mango shake made with fresh mangoes.",
+ingredients:"Mango, milk, sugar",
+tags:["Fresh","Drink"]
+}
+
+];
+
+
+const restaurants=[
+
+{
+name:"Spice Garden",
+cuisine:"Indian",
+rating:4.8,
+time:"25-30 min",
+image:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+},
+
+{
+name:"Pizza Paradise",
+cuisine:"Pizza",
+rating:4.7,
+time:"20-25 min",
+image:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80"
+},
+
+{
+name:"Burger House",
+cuisine:"Burger",
+rating:4.6,
+time:"20-25 min",
+image:"https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=80"
+},
+
+{
+name:"Sweet Treats",
+cuisine:"Dessert",
+rating:4.9,
+time:"15-20 min",
+image:"https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=800&q=80"
+}
+
+];
+
+
+let cart=[];
+let wishlist=[];
+
+
+/* SHOW FUNCTIONS
+   No scrolling anywhere */
+
+function showHome(){
+    alert("🏠 You are on FreshBite Home");
+}
+
+function showRestaurants(){
+    alert("🍽️ Popular Restaurants are shown below.");
+}
+
+function showMenu(){
+    renderFoods(foods);
+    document.getElementById("search").focus();
+}
+
+function showAbout(){
+    alert("❤️ FreshBite - Good Food, Good Mood!");
+}
+
+function showContact(){
+    alert("📧 Contact FreshBite at hello@freshbite.com");
+}
+
+
+/* RESTAURANTS */
+
+function renderRestaurants(){
+
+    document.getElementById("restaurants").innerHTML =
+    restaurants.map(r=>`
+
+        <div class="card">
+
+            <img src="${r.image}">
+
+            <div class="card-body">
+
+                <span class="orange">${r.cuisine}</span>
+
+                <h3>${r.name}</h3>
+
+                <div class="info">
+                    <span>⭐ ${r.rating}</span>
+                    <span>🕒 ${r.time}</span>
+                </div>
+
+                <button
+                    class="primary full"
+                    onclick="restaurantMenu('${r.cuisine}')"
+                >
+                    View Menu
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* FOODS */
+
+function renderFoods(list){
+
+    document.getElementById("foods").innerHTML =
+    list.map(f=>`
+
+        <div class="card">
+
+            <div class="food-img">
+
+                <img
+                    src="${f.image}"
+                    onerror="this.src='https://placehold.co/800x500/fff0e7/ff6b35?text=FreshBite'"
+                >
+
+                <button
+                    class="heart"
+                    onclick="toggleWish(${f.id})"
+                >
+                    ${wishlist.includes(f.id)?"♥":"♡"}
+                </button>
+
+            </div>
+
+            <div class="card-body">
+
+                <span class="orange">${f.category}</span>
+
+                <h3>${f.name}</h3>
+
+                <p class="food-description">
+                    ${f.description}
+                </p>
+
+                <div class="tags">
+                    ${f.tags.map(t=>`<span>${t}</span>`).join("")}
+                </div>
+
+                <div class="food-bottom">
+
+                    <strong>₹${f.price}</strong>
+
+                    <div>
+
+                        <button
+                            class="view"
+                            onclick="showProduct(${f.id})"
+                        >
+                            View
+                        </button>
+
+                        <button
+                            class="add"
+                            onclick="addCart(${f.id})"
+                        >
+                            Add
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* CATEGORY */
+
+function categoryFood(category){
+
+    document.getElementById("categoryFilter").value=category;
+
+    renderFoods(
+        foods.filter(f=>f.category===category)
+    );
+}
+
+
+/* RESTAURANT */
+
+function restaurantMenu(category){
+
+    categoryFood(category);
+}
+
+
+/* SEARCH */
+
+function searchFood(){
+    filterFood();
+}
+
+function filterFood(){
+
+    const text =
+        document.getElementById("search")
+        .value.toLowerCase();
+
+    const category =
+        document.getElementById("categoryFilter").value;
+
+    const price =
+        document.getElementById("priceFilter").value;
+
+
+    const result=foods.filter(f=>{
+
+        const nameMatch =
+            f.name.toLowerCase().includes(text);
+
+        const categoryMatch =
+            category==="all" ||
+            f.category===category;
+
+        let priceMatch=true;
+
+        if(price==="under200")
+            priceMatch=f.price<200;
+
+        if(price==="200-300")
+            priceMatch=f.price>=200 && f.price<=300;
+
+        if(price==="above300")
+            priceMatch=f.price>300;
+
+        return nameMatch && categoryMatch && priceMatch;
+
+    });
+
+    renderFoods(result);
+}
+
+
+/* PRODUCT */
+
+function showProduct(id){
+
+    const f=foods.find(x=>x.id===id);
+
+    document.getElementById("productDetails").innerHTML=`
+
+        <div class="product">
+
+            <img src="${f.image}">
+
+            <div>
+
+                <span class="orange">${f.category}</span>
+
+                <h2>${f.name}</h2>
+
+                <p>⭐ ${f.rating}</p>
+
+                <br>
+
+                <p>${f.description}</p>
+
+                <br>
+
+                <b>Ingredients</b>
+
+                <p>${f.ingredients}</p>
+
+                <div class="price">
+                    ₹${f.price}
+                </div>
+
+                <button
+                    class="primary full"
+                    onclick="addCart(${f.id});closeModal('productModal')"
+                >
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    openModal("productModal");
+}
+
+
+/* CART */
+
+function addCart(id){
+
+    const f=foods.find(x=>x.id===id);
+
+    const existing=cart.find(x=>x.id===id);
+
+    if(existing){
+        existing.qty++;
+    }else{
+        cart.push({
+            id:id,
+            name:f.name,
+            price:f.price,
+            image:f.image,
+            qty:1
+        });
+    }
+
+    updateCartCount();
+    renderCart();
+    openCart();
+}
+
+
+function updateCartCount(){
+
+    document.getElementById("cartCount").textContent =
+        cart.reduce((sum,x)=>sum+x.qty,0);
+}
+
+
+function openCart(){
+
+    renderCart();
+    openModal("cartModal");
+}
+
+
+function renderCart(){
+
+    const box=document.getElementById("cartItems");
+
+    if(!cart.length){
+
+        box.innerHTML=`
+            <div style="text-align:center;padding:40px">
+                🛒
+                <h3>Your cart is empty</h3>
+                <p>Add something delicious!</p>
+            </div>
+        `;
+
+        updateSummary();
+
+        return;
+    }
+
+
+    box.innerHTML=cart.map(item=>`
+
+        <div class="cart-row">
+
+            <img src="${item.image}">
+
+            <div>
+
+                <h4>${item.name}</h4>
+
+                <p>₹${item.price}</p>
+
+                <div class="qty">
+
+                    <button onclick="changeQty(${item.id},-1)">
+                        −
+                    </button>
+
+                    <span>${item.qty}</span>
+
+                    <button onclick="changeQty(${item.id},1)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button
+                class="remove"
+                onclick="removeCart(${item.id})"
+            >
+                ✕
+            </button>
+
+        </div>
+
+    `).join("");
+
+    updateSummary();
+}
+
+
+function changeQty(id,value){
+
+    const item=cart.find(x=>x.id===id);
+
+    if(!item)return;
+
+    item.qty+=value;
+
+    if(item.qty<=0){
+        cart=cart.filter(x=>x.id!==id);
+    }
+
+    updateCartCount();
+    renderCart();
+}
+
+
+function removeCart(id){
+
+    cart=cart.filter(x=>x.id!==id);
+
+    updateCartCount();
+    renderCart();
+}
+
+
+function updateSummary(){
+
+    const subtotal=cart.reduce(
+        (sum,x)=>sum+x.price*x.qty,
+        0
+    );
+
+    const delivery=subtotal?40:0;
+
+    const discount=subtotal>=500
+        ?Math.round(subtotal*.20)
+        :0;
+
+    const total=subtotal+delivery-discount;
+
+    document.getElementById("subtotal").textContent=
+        "₹"+subtotal;
+
+    document.getElementById("delivery").textContent=
+        "₹"+delivery;
+
+    document.getElementById("discount").textContent=
+        "-₹"+discount;
+
+    document.getElementById("total").textContent=
+        "₹"+total;
+}
+
+
+/* WISHLIST */
+
+function toggleWish(id){
+
+    if(wishlist.includes(id)){
+        wishlist=wishlist.filter(x=>x!==id);
+    }else{
+        wishlist.push(id);
+    }
+
+    renderFoods(foods);
+}
+
+
+function showWishlist(){
+
+    const list=foods.filter(
+        f=>wishlist.includes(f.id)
+    );
+
+    renderFoods(list);
+
+    if(!list.length){
+        alert("♡ Your wishlist is empty.");
+    }
+}
+
+
+/* OFFER */
+
+function showOffer(){
+
+    renderFoods(
+        foods.filter(f=>f.price<=200)
+    );
+}
+
+
+/* LOGIN */
+
+function openLogin(){
+
+    closeAllModals();
+    openModal("loginModal");
+}
+
+
+function login(e){
+
+    e.preventDefault();
+
+    const email=
+        document.getElementById("loginEmail").value;
+
+    localStorage.setItem(
+        "freshbiteUser",
+        JSON.stringify({email:email})
+    );
+
+    closeModal("loginModal");
+
+    alert("✅ Login successful!");
+}
+
+
+/* REGISTER */
+
+function openRegister(){
+
+    closeAllModals();
+    openModal("registerModal");
+}
+
+
+function register(e){
+
+    e.preventDefault();
+
+    const name=
+        document.getElementById("registerName").value;
+
+    localStorage.setItem(
+        "freshbiteUser",
+        JSON.stringify({name:name})
+    );
+
+    closeModal("registerModal");
+
+    alert("🎉 Account created successfully!");
+}
+
+
+/* CHECKOUT */
+
+function checkout(){
+
+    if(!cart.length){
+
+        alert("🛒 Your cart is empty!");
+
+        return;
+    }
+
+    if(!localStorage.getItem("freshbiteUser")){
+
+        closeModal("cartModal");
+
+        openLogin();
+
+        return;
+    }
+
+    closeModal("cartModal");
+
+    openModal("checkoutModal");
+}
+
+
+function placeOrder(e){
+
+    e.preventDefault();
+
+    const number=
+        "FB"+Math.floor(
+            100000+Math.random()*900000
+        );
+
+    document.getElementById(
+        "orderNumber"
+    ).textContent=number;
+
+    cart=[];
+
+    updateCartCount();
+
+    closeModal("checkoutModal");
+
+    openModal("successModal");
+}
+
+
+/* CONTACT */
+
+function sendMessage(e){
+
+    e.preventDefault();
+
+    alert(
+        "✅ Thank you! Your message has been sent."
+    );
+
+    e.target.reset();
+}
+
+
+/* MODALS */
+
+function openModal(id){
+
+    document
+        .getElementById(id)
+        .classList.add("show");
+
+    document.body.style.overflow="hidden";
+}
+
+
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+    document.body.style.overflow="";
+}
+
+
+function closeAllModals(){
+
+    document
+        .querySelectorAll(".modal")
+        .forEach(m=>m.classList.remove("show"));
+
+    document.body.style.overflow="";
+}
+
+
+document.addEventListener("click",function(e){
+
+    if(e.target.classList.contains("modal")){
+
+        closeModal(e.target.id);
+    }
+
+});
+
+
+document.addEventListener("keydown",function(e){
+
+    if(e.key==="Escape"){
+        closeAllModals();
+    }
+
+});
+
+
+/* START */
+
+renderRestaurants();
+renderFoods(foods);
+updateCartCount();
+
+</script>
+
+</body>
+</html>
